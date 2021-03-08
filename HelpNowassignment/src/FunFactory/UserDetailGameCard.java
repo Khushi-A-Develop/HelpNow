@@ -85,22 +85,33 @@ public class UserDetailGameCard implements Comparable<UserDetailGameCard>
 	/**
 	 * @param gcId
 	 * @param user
-	 * @param gcBalance
-	 * @param start
 	 */
-	public UserDetailGameCard(int gcId, char user, int gcBalance, int start) {
+	public UserDetailGameCard(int gcId, char user) {
 		this.gcId = gcId;
 		this.user = user;
-		this.gcBalance = gcBalance;
-		this.start = start;
+	}
+	
+	
+
+
+
+	/**
+	 * 
+	 */
+	public UserDetailGameCard() {
 	}
 
 
 
+
 	@Override
-	public int compareTo(UserDetailGameCard o) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int compareTo(UserDetailGameCard gc) {
+		if(gcId>gc.gcId)
+			return 1;
+		else if(gcId<gc.gcId)
+			return -1;
+		else
+			return 0;
 	}
 
 	
