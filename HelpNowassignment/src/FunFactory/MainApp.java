@@ -1,5 +1,6 @@
 package FunFactory;
 
+import java.util.Calendar;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Scanner;
@@ -28,6 +29,8 @@ public class MainApp
 		queue.add(gc3);
 		queue.add(gc4);
 		
+		MainApp obj = new MainApp();
+		
 		for(UserDetailGameCard gc : queue)
 		{
 			if(gc.user=='n')
@@ -42,10 +45,113 @@ public class MainApp
 				System.out.println("enter from which game to do want to start 1 or 10");
 				gc.start=sc.nextInt();
 			}
-			
+			System.out.println(gc.toString());
+			gc.gcBalance=obj.balanceDeduction(gc.start, gc.gcBalance);
+			System.out.println("balance is " + gc.gcBalance);
 		}
+		
 	}
 	
+	int balanceDeduction(int start, int balance)
+	{
+		Scanner sc = new Scanner(System.in);
+		//find day according to the system 
+		Calendar calendar =Calendar.getInstance();
+		String[] days = new String[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+		String day =days[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+	    System.out.println(balance);
+		char ans='y';
+		int s = start;
+		if(day.equalsIgnoreCase("saturday") || (day.equalsIgnoreCase("sunday")))
+		{
+			
+			
+			if(start == 1)
+			do
+			{ 
+				if(balance > 10)
+				balance = balance - 20;
+				else
+				{
+					System.out.println("recharge your account enter amount >10");
+					int b =sc.nextInt();
+					balance +=b;
+				}
+				System.out.println(balance);
+				ans = startFunction(++s);
+			}while(ans == 'y' || ans =='Y');
+			
+			else if(start == 10)
+				do
+				{ 
+					if(balance > 10)
+						balance = balance - 20;
+						else
+						{
+							System.out.println("recharge your account enter amount >10");
+							int b =sc.nextInt();
+							balance +=b;
+						}
+					System.out.println(balance);
+					ans = startFunction(--s);
+				}while(ans == 'y' || ans =='Y');
+			else
+				System.out.println("*********you cannot start from game " + start + " ***********");
+		}
+		else
+		{
+			if(start == 1)
+				do
+				{ 
+					if(balance > 10)
+						balance = balance - 10;
+						else
+						{
+							System.out.println("recharge your account enter amount >10");
+							int b =sc.nextInt();
+							balance +=b;
+						}
+					System.out.println(balance);
+					ans = startFunction(++s);
+				}while(ans == 'y' || ans =='Y');
+				else if(start == 10)
+					do
+					{ if(balance > 10)
+						balance = balance - 10;
+					else
+					{
+						System.out.println("recharge your account enter amount >10");
+						int b =sc.nextInt();
+						balance +=b;
+					}System.out.println(balance);
+						ans = startFunction(--s);
+					}while(ans == 'y' || ans =='Y');
+			
+				else
+					System.out.println("*********you cannot start from game " + start + " ***********");
+		
+		
+		}
+		return balance;
+	}
+
+	char startFunction(int start)
+	{		
+		Scanner sc= new Scanner(System.in);
+		char ans;
+		
+		System.out.println("Do you want to move game " +start + " Y / N");
+		ans = sc.next().charAt(0);
+		
+		if(start==10 || start == 1 )
+		{
+			System.out.println("You have finished all the game");
+			return 'n';
+		}
+		
+		return ans;
+		
+	}
 	
 
 }

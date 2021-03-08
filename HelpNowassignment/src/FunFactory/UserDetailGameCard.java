@@ -95,6 +95,14 @@ public class UserDetailGameCard implements Comparable<UserDetailGameCard>
 
 
 
+	@Override
+	public String toString() {
+		return "UserDetailGameCard [gcId=" + gcId + ", user=" + user + ", gcBalance=" + gcBalance + ", start=" + start
+				+ "]";
+	}
+
+
+
 	/**
 	 * 
 	 */
