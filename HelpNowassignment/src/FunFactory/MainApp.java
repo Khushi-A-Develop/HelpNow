@@ -30,25 +30,31 @@ public class MainApp
 		queue.add(gc4);
 		
 		MainApp obj = new MainApp();
-		
+		int i = 0;
 		for(UserDetailGameCard gc : queue)
 		{
+			i++;
 			if(gc.user=='n')
 			{
-				gc.gcBalance=250;
-				gc.start=1;
+				gc.gcBalance=250; //assuming balance at starting to be 250
+				gc.start=1; //game always starts from Game 1
 			}
 			else if(gc.user=='e')
 			{
 				System.out.println("enter your current balance : " );
-				gc.gcBalance=sc.nextInt();
+				gc.gcBalance=sc.nextInt(); //accepts value from user 
 				System.out.println("enter from which game to do want to start 1 or 10");
 				gc.start=sc.nextInt();
 			}
-			System.out.println(gc.toString());
+			System.out.println("****************\n"+gc.toString()+"\n***********\n");
+			
 			gc.gcBalance=obj.balanceDeduction(gc.start, gc.gcBalance);
 			System.out.println("balance is " + gc.gcBalance);
+			//on successfull execution remove the user from the queue
+			queue.remove("gc" + i);
+			System.out.println("gc"+i+" is removed successfully");
 		}
+		
 		
 	}
 	
@@ -65,10 +71,11 @@ public class MainApp
 		if(day.equalsIgnoreCase("saturday") || (day.equalsIgnoreCase("sunday")))
 		{
 			
-			
+			//if user starts game from one on saturday and sunday then balance is deducted 20
 			if(start == 1)
 			do
 			{ 
+				//checks if balance < 10, so user will not be able to exit from game
 				if(balance > 10)
 				balance = balance - 20;
 				else
@@ -77,7 +84,7 @@ public class MainApp
 					int b =sc.nextInt();
 					balance +=b;
 				}
-				System.out.println(balance);
+				System.out.println("New Balance " + balance);
 				ans = startFunction(++s);
 			}while(ans == 'y' || ans =='Y');
 			
@@ -92,13 +99,13 @@ public class MainApp
 							int b =sc.nextInt();
 							balance +=b;
 						}
-					System.out.println(balance);
+					System.out.println("New Balance " + balance);
 					ans = startFunction(--s);
 				}while(ans == 'y' || ans =='Y');
 			else
 				System.out.println("*********you cannot start from game " + start + " ***********");
 		}
-		else
+		else //on weekdays the amount is deducted 10
 		{
 			if(start == 1)
 				do
@@ -111,7 +118,7 @@ public class MainApp
 							int b =sc.nextInt();
 							balance +=b;
 						}
-					System.out.println(balance);
+					System.out.println("New Balance " + balance);
 					ans = startFunction(++s);
 				}while(ans == 'y' || ans =='Y');
 				else if(start == 10)
@@ -123,7 +130,7 @@ public class MainApp
 						System.out.println("recharge your account enter amount >10");
 						int b =sc.nextInt();
 						balance +=b;
-					}System.out.println(balance);
+					}System.out.println("New Balance"+balance);
 						ans = startFunction(--s);
 					}while(ans == 'y' || ans =='Y');
 			
@@ -135,6 +142,7 @@ public class MainApp
 		return balance;
 	}
 
+	//this function regulates the start and continuity of the game
 	char startFunction(int start)
 	{		
 		Scanner sc= new Scanner(System.in);
